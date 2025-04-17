@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const mysql = require('mysql2');
+const db = require('./config/db'); 
 
 dotenv.config();
 
@@ -9,22 +9,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = mysql.createConnectin({
-    host : process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-});
 
-//Test DB connection
-db.connect((err)=>{
-    if(err){
-        console.error('Database connection failed:', err);
-    } else {
-        console.log('Connected to MySQL database');
-    }
-});
-
+// Test route
 app.get('/', (req, res)=>{
     res.send('pantryList API is running 🚀');
 });
