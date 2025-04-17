@@ -1,14 +1,14 @@
 const db = require('../config/db');
 
 //Register user
-const RegisterUser = (req, res) => {
+const registerUser = (req, res) => {
     const { email, is_verified } = req.body;
 
     if(!email){
         return res.status(400).json({message: "Email is required" });
     }
 
-    const sql = 'INSERT INTO users (email, is_verified) VALUES (?. ?)';
+    const sql = 'INSERT INTO users (email, is_verified) VALUES (?, ?)';
 
     db.query(sql, [email, is_verified || false], (err, result)=>{
         if(err){
@@ -20,4 +20,4 @@ const RegisterUser = (req, res) => {
     });
 }
 
-module.exports = { RegisterUser };
+module.exports = { registerUser };
