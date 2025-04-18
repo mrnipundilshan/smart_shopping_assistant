@@ -58,6 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Background(
         child: Scaffold(
       backgroundColor: Colors.transparent,
@@ -66,9 +67,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(image: AssetImage('assets/logo.png')),
-          Text(
-            "Your Interlligent shopping assistant create lists, share items, and always remember what you need!",
-            style: TextStyle(color: Colors.white),
+          Padding(
+            padding: EdgeInsets.only(right: width * 0.05, left: width * 0.05),
+            child: Text(
+              textAlign: TextAlign.center,
+              "Your Interlligent shopping assistant create lists, share items, and always remember what you need!",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: width * 0.05),
+            ),
           ),
           TextField(
             controller: emailController,
