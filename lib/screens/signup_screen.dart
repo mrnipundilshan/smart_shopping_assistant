@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:smart_shopping_assistant/services/background/bg.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -21,11 +23,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     try {
       // Firebase signup
-      UserCredential userCred = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
-          );
+      UserCredential userCred =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
       // Send user data to backend
       final response = await http.post(
@@ -56,28 +58,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Sign Up")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            loading
-                ? CircularProgressIndicator()
-                : ElevatedButton(onPressed: signUp, child: Text("Sign Up")),
-          ],
-        ),
+    return Background(
+        child: Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image(image: AssetImage('assets/logo.png')),
+          Text(
+            "Your Interlligent shopping assistant create lists, share items, and always remember what you need!",
+            style: TextStyle(color: Colors.white),
+          ),
+          TextField(
+            controller: emailController,
+            decoration: InputDecoration(labelText: 'Email'),
+          ),
+          TextField(
+            controller: passwordController,
+            decoration: InputDecoration(labelText: 'Password'),
+            obscureText: true,
+          ),
+          loading
+              ? CircularProgressIndicator()
+              : ElevatedButton(onPressed: signUp, child: Text("Sign Up")),
+        ],
       ),
-    );
+    ));
   }
 }
