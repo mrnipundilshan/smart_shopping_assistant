@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "645948406329",
+    "project_id": "pantrylist-25aad",
+    "storage_bucket": "pantrylist-25aad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645948406329:android:50f16f895a760f5c896be8",
+        "android_client_info": {
+          "package_name": "com.example.smart_shopping_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWM8z-TZBUAPLcwrl31vwKWWXSE1e02ng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
