@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:smart_shopping_assistant/screens/signup_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  MobileAds.instance.initialize(); // AdMob Init
-  runApp(MyApp());
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    runApp(const MyApp());
+  } catch (e) {
+    print('Error initializing app: $e');
+    // Show error UI instead of crashing
+    runApp(MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Text('Error initializing app: $e'),
+        ),
+      ),
+    ));
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'PantryList',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: SignUpScreen(),
+      home: const SignUpScreen(),
     );
   }
 }
