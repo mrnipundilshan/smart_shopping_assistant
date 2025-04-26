@@ -9,12 +9,19 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Background(
       column: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [TextField()],
+        children: [
+          TextField(controller: _email),
+          TextField(controller: _password),
+          ElevatedButton(onPressed: () {}, child: Text("data")),
+        ],
       ),
     );
   }
