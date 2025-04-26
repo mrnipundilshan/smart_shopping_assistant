@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_shopping_assistant/auth/auth.dart';
 import 'package:smart_shopping_assistant/services/background/bg.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -20,7 +21,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         children: [
           TextField(controller: _email),
           TextField(controller: _password),
-          ElevatedButton(onPressed: () {}, child: Text("data")),
+          ElevatedButton(
+            onPressed: () {
+              AuthService().createUserWithEmailAndPassword(
+                _email.text,
+                _password.text,
+              );
+            },
+            child: Text("data"),
+          ),
         ],
       ),
     );
