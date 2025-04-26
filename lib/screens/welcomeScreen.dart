@@ -16,6 +16,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   final TextEditingController _password = TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Background(
       column: Column(
