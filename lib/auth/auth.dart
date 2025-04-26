@@ -14,6 +14,7 @@ class AuthService {
         email: email,
         password: password,
       );
+      log("account create successfully");
       return cred.user;
     } catch (e) {
       log("something went wrong");

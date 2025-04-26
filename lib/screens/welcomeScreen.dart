@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_shopping_assistant/auth/auth.dart';
 import 'package:smart_shopping_assistant/services/background/bg.dart';
+import 'package:smart_shopping_assistant/services/reuse/buttons.dart';
+import 'package:smart_shopping_assistant/services/reuse/textfield.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -19,19 +21,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       column: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(controller: _email),
-          TextField(controller: _password),
-          ElevatedButton(
-            onPressed: () {
-              AuthService().createUserWithEmailAndPassword(
-                _email.text,
-                _password.text,
-              );
-            },
-            child: Text("data"),
+          textfield(
+            reusetexteditincontroller: _email,
+            text: "Enter Your Email",
+            icon: Icon(Icons.email),
           ),
+          textfield(
+            reusetexteditincontroller: _password,
+            text: "Enter Your Password",
+            icon: Icon(Icons.lock),
+          ),
+          functionbutton(text: "Sign Up", function: _signup),
         ],
       ),
     );
+  }
+
+  Future<void> _signup() async {
+    final user = await AuthService().createUserWithEmailAndPassword(
+      _email.text,
+      _password.text,
+    );
+    if (user != null) {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
   }
 }

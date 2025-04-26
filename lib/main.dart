@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_shopping_assistant/screens/homescreen.dart';
 import 'package:smart_shopping_assistant/screens/welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -16,7 +17,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {'/welcome': (context) => const WelcomeScreen()},
+      routes: {
+        '/welcome': (context) => const WelcomeScreen(),
+        '/home': (context) => const homepage(),
+      },
       home: const WelcomeScreen(),
       // Performance optimizations
       builder: (context, child) {
