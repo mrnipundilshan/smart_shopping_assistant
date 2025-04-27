@@ -22,7 +22,7 @@ class Background extends StatelessWidget {
             stops: [0.0, 1],
           ),
         ),
-        child: column,
+        child: Center(child: SingleChildScrollView(child: column)),
       ),
     );
   }
