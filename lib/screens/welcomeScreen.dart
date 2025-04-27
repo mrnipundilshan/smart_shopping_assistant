@@ -57,12 +57,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   Future<void> _signup() async {
-    final user = await AuthService().createUserWithEmailAndPassword(
-      _email.text,
-      _password.text,
-    );
-    if (user != null) {
-      Navigator.pushReplacementNamed(context, '/home');
+    if (_password.text == _confirmp.text) {
+      final user = await AuthService().createUserWithEmailAndPassword(
+        _email.text,
+        _password.text,
+      );
+      if (user != null) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
     }
   }
 }
