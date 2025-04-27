@@ -14,6 +14,14 @@ class Loginscreen extends StatefulWidget {
 class _LoginscreenState extends State<Loginscreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +44,21 @@ class _LoginscreenState extends State<Loginscreen> {
             password: true,
           ),
           SizedBox(height: height * 0.02),
-          functionbutton(text: "Log In", function: _login),
+          functionbutton(
+            text: "Log In",
+            function: _login,
+            isLoading: _isLoading,
+          ),
         ],
       ),
     );
   }
 
   Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     final user = await AuthService().loginUserWithEmailAndPassword(
       _email.text,
       _password.text,
@@ -50,5 +66,8 @@ class _LoginscreenState extends State<Loginscreen> {
     if (user != null) {
       Navigator.pushReplacementNamed(context, '/home');
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 }

@@ -15,6 +15,7 @@ class _signinscreenState extends State<signinscreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmp = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -53,13 +54,22 @@ class _signinscreenState extends State<signinscreen> {
             password: true,
           ),
           SizedBox(height: height * 0.025),
-          functionbutton(text: "Sign Up", function: _signup),
+
+          functionbutton(
+            text: "Sign Up",
+            function: _signup,
+            isLoading: _isLoading,
+          ),
         ],
       ),
     );
   }
 
   Future<void> _signup() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     if (_password.text == _confirmp.text) {
       final user = await AuthService().createUserWithEmailAndPassword(
         _email.text,
@@ -69,5 +79,8 @@ class _signinscreenState extends State<signinscreen> {
         Navigator.pushReplacementNamed(context, '/home');
       }
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
