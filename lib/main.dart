@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smart_shopping_assistant/screens/firstscreen.dart';
+import 'package:smart_shopping_assistant/screens/signupNlogin/firstscreen.dart';
 import 'package:smart_shopping_assistant/screens/homescreen.dart';
-import 'package:smart_shopping_assistant/screens/loginscreen.dart';
-import 'package:smart_shopping_assistant/screens/signinscreen.dart';
+import 'package:smart_shopping_assistant/screens/signupNlogin/loginscreen.dart';
+import 'package:smart_shopping_assistant/screens/signupNlogin/signinscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
