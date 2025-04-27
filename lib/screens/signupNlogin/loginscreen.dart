@@ -15,6 +15,7 @@ class _LoginscreenState extends State<Loginscreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   bool _isLoading = false;
+  String? _errorMessage;
 
   @override
   void dispose() {
@@ -43,7 +44,21 @@ class _LoginscreenState extends State<Loginscreen> {
             icon: Icon(Icons.lock),
             password: true,
           ),
-          SizedBox(height: height * 0.02),
+          SizedBox(height: height * 0.01),
+
+          //show error message if exits
+          if (_errorMessage != null)
+            Padding(
+              padding: EdgeInsets.only(bottom: height * 0.02),
+              child: Text(
+                _errorMessage!,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
           functionbutton(
             text: "Log In",
             function: _login,
@@ -55,19 +70,26 @@ class _LoginscreenState extends State<Loginscreen> {
   }
 
   Future<void> _login() async {
-    setState(() {
-      _isLoading = true;
-    });
+    if (_email.text.isEmpty || _password.text.isEmpty) {
+      setState(() {
+        _errorMessage = "Fill all fields!";
+      });
+    } else {
+      setState(() {
+        _isLoading = true;
+        _errorMessage = null;
+      });
 
-    final user = await AuthService().loginUserWithEmailAndPassword(
-      _email.text,
-      _password.text,
-    );
-    if (user != null) {
-      Navigator.pushReplacementNamed(context, '/home');
+      final user = await AuthService().loginUserWithEmailAndPassword(
+        _email.text,
+        _password.text,
+      );
+      if (user != null) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 }
