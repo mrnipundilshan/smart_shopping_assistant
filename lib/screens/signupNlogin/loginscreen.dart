@@ -74,7 +74,7 @@ class _LoginscreenState extends State<Loginscreen> {
       setState(() {
         _errorMessage = "Fill all fields!";
       });
-    } else {
+    } else if (AuthService().isValidEmail(_email.text)) {
       setState(() {
         _isLoading = true;
         _errorMessage = null;
@@ -89,6 +89,10 @@ class _LoginscreenState extends State<Loginscreen> {
       }
       setState(() {
         _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _errorMessage = "Enter valid E mail!";
       });
     }
   }

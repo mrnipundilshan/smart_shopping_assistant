@@ -88,7 +88,7 @@ class _signinscreenState extends State<signinscreen> {
       });
 
       return;
-    } else {
+    } else if (AuthService().isValidEmail(_email.text)) {
       if (_password.text == _confirmp.text) {
         setState(() {
           _isLoading = true;
@@ -112,6 +112,12 @@ class _signinscreenState extends State<signinscreen> {
         });
         return;
       }
+    } else {
+      setState(() {
+        _errorMessage = "Enter valid E mail!!";
+      });
+
+      return;
     }
   }
 }
