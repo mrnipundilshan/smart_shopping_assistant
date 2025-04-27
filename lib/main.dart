@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smart_shopping_assistant/screens/firstscreen.dart';
 import 'package:smart_shopping_assistant/screens/homescreen.dart';
-import 'package:smart_shopping_assistant/screens/welcomeScreen.dart';
+import 'package:smart_shopping_assistant/screens/loginscreen.dart';
+import 'package:smart_shopping_assistant/screens/signinscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -18,10 +20,11 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/welcome': (context) => const WelcomeScreen(),
+        '/welcome': (context) => const signinscreen(),
         '/home': (context) => const homepage(),
+        '/login': (context) => const Loginscreen(),
+        '/': (context) => const firstscreen(),
       },
-      home: const WelcomeScreen(),
       // Performance optimizations
       builder: (context, child) {
         return ScrollConfiguration(

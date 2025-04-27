@@ -22,4 +22,28 @@ class AuthService {
 
     return null;
   }
+
+  Future<User?> loginUserWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      final cred = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return cred.user;
+    } catch (e) {
+      log("something went wrong");
+    }
+    return null;
+  }
+
+  Future<void> signout() async {
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      log("something went wrong");
+    }
+  }
 }

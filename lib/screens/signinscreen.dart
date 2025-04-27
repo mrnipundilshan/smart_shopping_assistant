@@ -4,14 +4,14 @@ import 'package:smart_shopping_assistant/services/background/bg.dart';
 import 'package:smart_shopping_assistant/services/reuse/buttons.dart';
 import 'package:smart_shopping_assistant/services/reuse/textfield.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+class signinscreen extends StatefulWidget {
+  const signinscreen({super.key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<signinscreen> createState() => _signinscreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _signinscreenState extends State<signinscreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmp = TextEditingController();
