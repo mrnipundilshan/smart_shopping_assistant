@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shopping_assistant/auth/auth.dart';
 import 'package:smart_shopping_assistant/services/background/bg.dart';
@@ -68,7 +69,7 @@ class _signinscreenState extends State<signinscreen> {
                 ),
               ),
             ),
-
+          SizedBox(height: height * 0.01),
           functionbutton(
             text: "Sign Up",
             function: _signup,
@@ -95,12 +96,34 @@ class _signinscreenState extends State<signinscreen> {
           _errorMessage = null;
         });
 
-        final user = await AuthService().createUserWithEmailAndPassword(
-          _email.text,
-          _password.text,
-        );
-        if (user != null) {
-          Navigator.pushReplacementNamed(context, '/home');
+        try {
+          final user = await AuthService().createUserWithEmailAndPassword(
+            _email.text,
+            _password.text,
+          );
+          if (user != null) {
+            Navigator.pushReplacementNamed(context, '/home');
+          } else {
+            setState(() {
+              _errorMessage = "Signup failed. Please try again.";
+            });
+          }
+        } on FirebaseAuthException catch (e) {
+          setState(() {
+            if (e.code == 'weak-password') {
+              _errorMessage = "Password must be at least 6 characters";
+            } else if (e.code == 'email-already-in-use') {
+              _errorMessage = "Email already in use. Try logging in";
+            } else if (e.code == 'invalid-email') {
+              _errorMessage = "Invalid email address";
+            } else {
+              _errorMessage = "Signup error: ${e.message}";
+            }
+          });
+        } catch (e) {
+          setState(() {
+            _errorMessage = "An unexpected error occurred. Try again.";
+          });
         }
 
         setState(() {

@@ -16,11 +16,9 @@ class AuthService {
       );
       log("account create successfully");
       return cred.user;
-    } catch (e) {
-      log("something went wrong");
+    } on FirebaseAuthException {
+      rethrow;
     }
-
-    return null;
   }
 
   Future<User?> loginUserWithEmailAndPassword(
@@ -34,7 +32,7 @@ class AuthService {
       );
       return cred.user;
     } catch (e) {
-      log("something went wrong");
+      log("Error: ${e.toString()}");
     }
     return null;
   }
