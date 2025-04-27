@@ -16,6 +16,7 @@ class _signinscreenState extends State<signinscreen> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmp = TextEditingController();
   bool _isLoading = false;
+  String? _errorMessage;
 
   @override
   void dispose() {
@@ -53,7 +54,20 @@ class _signinscreenState extends State<signinscreen> {
             icon: Icon(Icons.lock),
             password: true,
           ),
-          SizedBox(height: height * 0.025),
+          SizedBox(height: height * 0.01),
+
+          //show error message if exits
+          if (_errorMessage != null)
+            Padding(
+              padding: EdgeInsets.only(bottom: height * 0.02),
+              child: Text(
+                _errorMessage!,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
 
           functionbutton(
             text: "Sign Up",
@@ -66,21 +80,38 @@ class _signinscreenState extends State<signinscreen> {
   }
 
   Future<void> _signup() async {
-    setState(() {
-      _isLoading = true;
-    });
+    if (_email.text.isEmpty ||
+        _password.text.isEmpty ||
+        _confirmp.text.isEmpty) {
+      setState(() {
+        _errorMessage = "Fill all fields!";
+      });
 
-    if (_password.text == _confirmp.text) {
-      final user = await AuthService().createUserWithEmailAndPassword(
-        _email.text,
-        _password.text,
-      );
-      if (user != null) {
-        Navigator.pushReplacementNamed(context, '/home');
+      return;
+    } else {
+      if (_password.text == _confirmp.text) {
+        setState(() {
+          _isLoading = true;
+          _errorMessage = null;
+        });
+
+        final user = await AuthService().createUserWithEmailAndPassword(
+          _email.text,
+          _password.text,
+        );
+        if (user != null) {
+          Navigator.pushReplacementNamed(context, '/home');
+        }
+
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _errorMessage = "Passwords do not match!";
+        });
+        return;
       }
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 }
