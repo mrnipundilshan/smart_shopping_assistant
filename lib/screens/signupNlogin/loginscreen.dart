@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_shopping_assistant/auth/auth.dart';
 import 'package:smart_shopping_assistant/services/background/bg.dart';
 import 'package:smart_shopping_assistant/services/reuse/buttons.dart';
+import 'package:smart_shopping_assistant/services/reuse/square_tile.dart';
 import 'package:smart_shopping_assistant/services/reuse/textfield.dart';
 
 class Loginscreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _LoginscreenState extends State<Loginscreen> {
     return Background(
       column: Column(
         children: [
-          Image(image: AssetImage("./assets/logo.png")),
+          Image(image: AssetImage("./assets/logo.png"), width: height * 0.4),
           textfield(
             reusetexteditincontroller: _email,
             text: "Enter Your email",
@@ -63,6 +64,48 @@ class _LoginscreenState extends State<Loginscreen> {
             text: "Log In",
             function: _login,
             isLoading: _isLoading,
+          ),
+          SizedBox(height: height * 0.01),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SquareTile(
+                onTap: () async {
+                  final user = await AuthService().signWithGoogle();
+                  if (user != null) {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  } else {
+                    setState(() {
+                      _errorMessage =
+                          "Google Sign-In failed. Please try again.";
+                    });
+                  }
+                },
+                imagePath: "assets/google.png",
+              ),
+              SizedBox(width: height * 0.01),
+              SquareTile(onTap: () {}, imagePath: "assets/apple.png"),
+            ],
+          ),
+          SizedBox(height: height * 0.01),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Haven't an account? ",
+                style: TextStyle(color: Colors.white),
+              ),
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, '/welcome'),
+                child: const Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

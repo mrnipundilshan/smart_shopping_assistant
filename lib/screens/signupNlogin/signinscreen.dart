@@ -35,7 +35,7 @@ class _signinscreenState extends State<signinscreen> {
       column: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(image: AssetImage("./assets/logo.png")),
+          Image(image: AssetImage("./assets/logo.png"), width: height * 0.4),
           textfield(
             reusetexteditincontroller: _email,
             text: "Enter Your Email",
@@ -96,6 +96,27 @@ class _signinscreenState extends State<signinscreen> {
               ),
               SizedBox(width: height * 0.01),
               SquareTile(onTap: () {}, imagePath: "assets/apple.png"),
+            ],
+          ),
+
+          SizedBox(height: height * 0.01),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Already have an account? ",
+                style: TextStyle(color: Colors.white),
+              ),
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, '/login'),
+                child: const Text(
+                  "Log In",
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
           ),
         ],
