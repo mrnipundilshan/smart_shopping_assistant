@@ -25,6 +25,7 @@ class functionbutton extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.amber,
+
           minimumSize: Size(width * 0.7, height * 0.08),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 2,

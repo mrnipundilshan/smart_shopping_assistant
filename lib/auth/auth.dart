@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final _auth = FirebaseAuth.instance;
@@ -40,9 +41,33 @@ class AuthService {
   Future<void> signout() async {
     try {
       await _auth.signOut();
+
+      // Sign out any previously signed-in user to force account selection
+      await GoogleSignIn().signOut();
     } catch (e) {
       log("something went wrong");
     }
+  }
+
+  Future<User?> signWithGoogle() async {
+    //begin interactive sign in process
+    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+
+    //user cancels google sign in pop up screen
+    if (gUser == null) return null;
+
+    //obtain auth details from request
+    final GoogleSignInAuthentication gAuth = await gUser.authentication;
+
+    //create a new credential for user
+    final credential = GoogleAuthProvider.credential(
+      accessToken: gAuth.accessToken,
+      idToken: gAuth.idToken,
+    );
+
+    //finally, sign in!
+    final userCredential = await _auth.signInWithCredential(credential);
+    return userCredential.user;
   }
 
   bool isValidEmail(String email) {

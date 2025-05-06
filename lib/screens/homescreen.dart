@@ -22,7 +22,7 @@ class _homepageState extends State<homepage> {
 
   Future<void> _logout() async {
     AuthService().signout().then((value) {
-      Navigator.pushReplacementNamed(context, '/first');
+      Navigator.pushReplacementNamed(context, '/');
     });
   }
 }

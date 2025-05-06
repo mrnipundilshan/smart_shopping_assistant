@@ -18,7 +18,6 @@ class _firstscreenState extends State<firstscreen> {
       column: Column(
         children: [
           Image(image: AssetImage("./assets/logo.png")),
-
           functionbutton(text: "Sign Up", function: _signup),
           SizedBox(height: height * 0.02),
           functionbutton(text: "Log In", function: _login),

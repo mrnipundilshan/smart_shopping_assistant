@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_shopping_assistant/auth/auth.dart';
 import 'package:smart_shopping_assistant/services/background/bg.dart';
 import 'package:smart_shopping_assistant/services/reuse/buttons.dart';
+import 'package:smart_shopping_assistant/services/reuse/square_tile.dart';
 import 'package:smart_shopping_assistant/services/reuse/textfield.dart';
 
 class signinscreen extends StatefulWidget {
@@ -74,6 +75,28 @@ class _signinscreenState extends State<signinscreen> {
             text: "Sign Up",
             function: _signup,
             isLoading: _isLoading,
+          ),
+          SizedBox(height: height * 0.01),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SquareTile(
+                onTap: () async {
+                  final user = await AuthService().signWithGoogle();
+                  if (user != null) {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  } else {
+                    setState(() {
+                      _errorMessage =
+                          "Google Sign-In failed. Please try again.";
+                    });
+                  }
+                },
+                imagePath: "assets/google.png",
+              ),
+              SizedBox(width: height * 0.01),
+              SquareTile(onTap: () {}, imagePath: "assets/apple.png"),
+            ],
           ),
         ],
       ),
