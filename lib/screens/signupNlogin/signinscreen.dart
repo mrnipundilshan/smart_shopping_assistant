@@ -102,8 +102,7 @@ class _signinscreenState extends State<signinscreen> {
                     Navigator.pushReplacementNamed(context, '/home');
                   } else {
                     setState(() {
-                      _errorMessage =
-                          "Google Sign-In failed. Please try again.";
+                      _errorMessage = "Apple Sign-In failed. Please try again.";
                     });
                   }
                 },
