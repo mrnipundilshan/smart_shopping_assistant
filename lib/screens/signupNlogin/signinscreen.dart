@@ -95,7 +95,20 @@ class _signinscreenState extends State<signinscreen> {
                 imagePath: "assets/google.png",
               ),
               SizedBox(width: height * 0.01),
-              SquareTile(onTap: () {}, imagePath: "assets/apple.png"),
+              SquareTile(
+                onTap: () async {
+                  final user = await AuthService().signWithApple();
+                  if (user != null) {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  } else {
+                    setState(() {
+                      _errorMessage =
+                          "Google Sign-In failed. Please try again.";
+                    });
+                  }
+                },
+                imagePath: "assets/apple.png",
+              ),
             ],
           ),
 

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shopping_assistant/screens/signupNlogin/firstscreen.dart';
 import 'package:smart_shopping_assistant/screens/homescreen.dart';
@@ -17,14 +18,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
         '/welcome': (context) => const signinscreen(),
         '/home': (context) => const homepage(),
         '/login': (context) => const Loginscreen(),
-        '/': (context) => const firstscreen(),
+        '/first': (context) => const firstscreen(),
       },
+      home: user != null ? const homepage() : const firstscreen(),
       // Performance optimizations
       builder: (context, child) {
         return ScrollConfiguration(
