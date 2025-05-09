@@ -49,6 +49,6 @@
   </tr>
   <!-- Row 3 -->
   <tr>
-    <td><img src="./assets/ss/linkedinpost.png" width="600" alt="Screenshot 6"></td>
+    <td colspan = 3><img src="./assets/ss/linkedinpost.png" width="600" alt="Screenshot 6"></td>
   </tr>
 </table>
